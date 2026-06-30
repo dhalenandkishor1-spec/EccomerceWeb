@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FreshCart Store</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: #1f2933;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f5f7fb;
+      }
+
+      header {
+        background: #ffffff;
+        border-bottom: 1px solid #d9e2ec;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      nav {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 18px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #0f766e;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 18px;
+        align-items: center;
+      }
+
+      .nav-links a {
+        color: #52606d;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .cart {
+        padding: 10px 14px;
+        border-radius: 6px;
+        color: #ffffff;
+        background: #0f766e;
+        font-weight: 700;
+      }
+
+      .hero {
+        width: min(1120px, calc(100% - 32px));
+        margin: 34px auto 0;
+        min-height: 360px;
+        padding: 48px;
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 32px;
+        align-items: center;
+        border-radius: 8px;
+        background:
+          linear-gradient(rgba(15, 118, 110, 0.72), rgba(15, 118, 110, 0.72)),
+          url("https://images.unsplash.com/photo-1607082349566-187342175e2f?auto=format&fit=crop&w=1200&q=80");
+        background-position: center;
+        background-size: cover;
+        color: #ffffff;
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-size: clamp(2.1rem, 5vw, 4.2rem);
+        line-height: 1.05;
+        letter-spacing: 0;
+      }
+
+      .hero p {
+        margin: 18px 0 26px;
+        max-width: 560px;
+        color: #e6fffb;
+        font-size: 1.08rem;
+        line-height: 1.6;
+      }
+
+      .button {
+        display: inline-block;
+        padding: 13px 20px;
+        border-radius: 6px;
+        color: #0f3f3b;
+        background: #facc15;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      .hero-box {
+        padding: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.38);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.16);
+        backdrop-filter: blur(8px);
+      }
+
+      .hero-box strong {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 1.25rem;
+      }
+
+      main {
+        width: min(1120px, calc(100% - 32px));
+        margin: 36px auto;
+      }
+
+      .section-title {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 18px;
+      }
+
+      .section-title h2 {
+        margin: 0;
+        font-size: 2rem;
+      }
+
+      .section-title p {
+        margin: 0;
+        color: #697586;
+      }
+
+      .products {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+
+      .product {
+        overflow: hidden;
+        border: 1px solid #d9e2ec;
+        border-radius: 8px;
+        background: #ffffff;
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+      }
+
+      .product img {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        display: block;
+        object-fit: cover;
+      }
+
+      .product-info {
+        padding: 16px;
+      }
+
+      .product-info h3 {
+        margin: 0 0 8px;
+        font-size: 1.08rem;
+      }
+
+      .product-info p {
+        margin: 0 0 14px;
+        color: #697586;
+        line-height: 1.45;
+      }
+
+      .price-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .price {
+        font-size: 1.2rem;
+        font-weight: 800;
+        color: #0f766e;
+      }
+
+      .add-btn {
+        border: 0;
+        border-radius: 6px;
+        padding: 10px 12px;
+        color: #ffffff;
+        background: #111827;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .features {
+        margin-top: 34px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+
+      .feature {
+        padding: 20px;
+        border: 1px solid #d9e2ec;
+        border-radius: 8px;
+        background: #ffffff;
+      }
+
+      .feature h3 {
+        margin: 0 0 8px;
+      }
+
+      .feature p {
+        margin: 0;
+        color: #697586;
+        line-height: 1.5;
+      }
+
+      footer {
+        padding: 24px 16px;
+        color: #697586;
+        text-align: center;
+        background: #ffffff;
+        border-top: 1px solid #d9e2ec;
+      }
+
+      @media (max-width: 850px) {
+        nav,
+        .nav-links {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .hero {
+          grid-template-columns: 1fr;
+          padding: 32px;
+        }
+
+        .products,
+        .features {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 560px) {
+        .hero {
+          padding: 26px 20px;
+        }
+
+        .section-title {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .products,
+        .features {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="logo">FreshCart</div>
+        <div class="nav-links">
+          <a href="#products">Products</a>
+          <a href="#features">Service</a>
+          <a href="#contact">Contact</a>
+          <div class="cart">Cart: 0</div>
+        </div>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div>
+        <h1>Simple shopping for daily essentials.</h1>
+        <p>
+          Find fresh groceries, home products, and useful everyday items in one
+          clean online store.
+        </p>
+        <a class="button" href="#products">Shop Now</a>
+      </div>
+      <div class="hero-box">
+        <strong>Weekend Offer</strong>
+        <p>Get up to 30% off on selected fresh products and home bundles.</p>
+      </div>
+    </section>
+
+    <main>
+      <section id="products">
+        <div class="section-title">
+          <div>
+            <h2>Popular Products</h2>
+            <p>Hand-picked items for your home.</p>
+          </div>
+          <p>Free delivery over $50</p>
+        </div>
+
+        <div class="products">
+          <article class="product">
+            <img
+              src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=600&q=80"
+              alt="Fresh fruit basket"
+            />
+            <div class="product-info">
+              <h3>Fresh Fruit Box</h3>
+              <p>Seasonal fruits packed fresh for your family.</p>
+              <div class="price-row">
+                <span class="price">$18</span>
+                <button class="add-btn">Add</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product">
+            <img
+              src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80"
+              alt="Vegetables on a market table"
+            />
+            <div class="product-info">
+              <h3>Veggie Basket</h3>
+              <p>Crisp vegetables for salads, soups, and meals.</p>
+              <div class="price-row">
+                <span class="price">$14</span>
+                <button class="add-btn">Add</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product">
+            <img
+              src="https://images.unsplash.com/photo-1583947215259-38e31be8751f?auto=format&fit=crop&w=600&q=80"
+              alt="Cleaning products"
+            />
+            <div class="product-info">
+              <h3>Home Care Kit</h3>
+              <p>Helpful cleaning basics for a bright home.</p>
+              <div class="price-row">
+                <span class="price">$22</span>
+                <button class="add-btn">Add</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product">
+            <img
+              src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec?auto=format&fit=crop&w=600&q=80"
+              alt="Fresh bread"
+            />
+            <div class="product-info">
+              <h3>Bakery Pack</h3>
+              <p>Soft bread and baked goods delivered daily.</p>
+              <div class="price-row">
+                <span class="price">$10</span>
+                <button class="add-btn">Add</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="features" id="features">
+        <div class="feature">
+          <h3>Fast Delivery</h3>
+          <p>Orders are packed carefully and delivered quickly.</p>
+        </div>
+        <div class="feature">
+          <h3>Fresh Quality</h3>
+          <p>Products are selected with quality and freshness in mind.</p>
+        </div>
+        <div class="feature">
+          <h3>Easy Payment</h3>
+          <p>Simple checkout design ready for your next improvement.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer id="contact">
+      <p>FreshCart Store | Email: hello@freshcart.com | Phone: +1 555 0100</p>
+    </footer>
+  </body>
+</html>
